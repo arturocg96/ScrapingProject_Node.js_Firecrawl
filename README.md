@@ -1,6 +1,6 @@
 # Node.js Web Scraper API
 
-Este proyecto es una API desarrollada en Node.js que realiza scraping de eventos y avisos de diferentes webs municipales. Para una entidad usa tecnologías como Express, Axios, Cheerio y MySQL para extraer, almacenar y exponer los datos. Para la otra se integra con Firecrawl, que provee los datos ya estructurados. Ambas fuentes se unifican y sirven consistentemente a través de endpoints RESTful. El proyecto ejemplifica dos enfoques: scraping caserp y uso de un servicio externo especializado.
+Este proyecto es una API desarrollada en Node.js que realiza scraping de eventos y avisos de diferentes webs municipales. Para una entidad usa tecnologías como Express, Axios, Cheerio y MySQL para extraer, almacenar y exponer los datos. Para la otra se integra con Firecrawl, que provee los datos ya estructurados. Ambas fuentes se unifican y sirven consistentemente a través de endpoints RESTful. El proyecto ejemplifica dos enfoques: scraping casero y uso de un servicio externo especializado.
 
 ## Características
 
