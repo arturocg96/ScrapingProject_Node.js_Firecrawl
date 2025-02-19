@@ -24,7 +24,36 @@ DB_PORT=your_port
 PORT=your_app_port
 FIRECRAWL_API_KEY=your_api_key
 ````
-## Endpoints
+## Instalación
+
+Sigue estos pasos para configurar y ejecutar el proyecto en tu entorno local:
+
+#### 1. Clona el repositorio
+```bash
+git clone <URL_DEL_REPOSITORIO>
+cd <NOMBRE_DEL_PROYECTO>
+```
+### 2. Instala dependencias
+Asegúrate de tener Node.js y npm instalados. Luego ejecuta:
+```bash
+npm install
+```
+
+#### 3. Configura la base de datos
+Ejecuta  el script SQL adjunto junto  al proyecto en la carpeta db. 
+
+### 4. Inicia el servidor. 
+Ejecuta el siguiente comando para iniciar la aplicación:
+```bash
+npm run dev
+```
+
+#### 5. Realización de pruebas
+Las pruebas de los endpoints están disponibles en el archivo .rest incluido en el proyecto. Puedes usar herramientas como REST Client en Visual Studio Code para ejecutarlas.
+
+# Uso de la API
+
+## Endpoints Disponibles
 
 ### Avisos
 
