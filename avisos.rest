@@ -1,0 +1,18 @@
+@url = http://localhost:3000
+
+GET {{url}}/api/avisos/scrape
+
+GET {{url}}/api/avisos/
+
+PUT {{url}}/api/avisos/1
+Content-Type: application/json
+
+{
+    "title": "Nuevo título del aviso",
+    "subtitle": "Nuevo subtítulo",
+    "link": "https://nuevo-link.com",
+    "content": "Nuevo contenido del aviso",
+    "category": "Categoría actualizada"
+}
+
+DELETE {{url}}/api/avisos/1

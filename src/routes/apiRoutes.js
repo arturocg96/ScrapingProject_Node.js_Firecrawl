@@ -1,10 +1,10 @@
-const router = require('express').Router();
-//Importa las rutas de apiRoutes
+const express = require('express');
+const router = express.Router();
+const eventsRoutes = require('./api/apiEventsRoutes');
+const avisosRoutes = require('./api/apiAvisosRoutes');
 
-
-//Definición las subrutas de cada recurso o funcionalidad de la aplicación.
-
-//router.use('/users', require('./users'));
+router.use('/events', eventsRoutes);
+router.use('/avisos', avisosRoutes);
 
 
 module.exports = router;
