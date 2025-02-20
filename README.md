@@ -1,14 +1,24 @@
-# Node.js Web Scraper API
+# API Web Scraper en Node.js
 
-Este proyecto es una API desarrollada en Node.js que realiza scraping de eventos y avisos de diferentes webs municipales. Para una entidad usa tecnologías como Express, Axios, Cheerio y MySQL para extraer, almacenar y exponer los datos. Para la otra se integra con Firecrawl, que provee los datos ya estructurados. Ambas fuentes se unifican y sirven consistentemente a través de endpoints RESTful. El proyecto ejemplifica dos enfoques: scraping casero y uso de un servicio externo especializado.
+Este proyecto es una API desarrollada en Node.js que sirve como ejemplo práctico de dos metodologías diferentes para realizar web scraping, utilizando como caso de estudio la extracción de datos del portal web del Ayuntamiento de León. El objetivo principal es proporcionar una plantilla de referencia que pueda ser utilizada en futuros proyectos de extracción de datos.
+
+Para demostrar el primer enfoque, se ha implementado el scraping de la sección "Avisos" utilizando una combinación de tecnologías fundamentales: Express para la creación de endpoints REST, Axios para realizar peticiones HTTP, Cheerio para el análisis y extracción de datos HTML, y MySQL para el almacenamiento persistente de la información. Este método implica un proceso en dos fases: primero se extraen los datos básicos y enlaces de la lista de avisos, y posteriormente se realiza un segundo scraping para obtener el contenido detallado de cada aviso individual.
+
+El segundo enfoque se demuestra en las secciones "Notices" y "Events", donde se utiliza Firecrawl API, un servicio especializado en web scraping. Es importante señalar que "Avisos" y "Notices" hacen referencia a los mismos datos, lo que permite una comparación directa entre ambas metodologías de extracción.
+
+Todos los datos extraídos, independientemente del método utilizado, se unifican y se exponen a través de endpoints RESTful consistentes. Esta estructura permite evaluar en un escenario real las ventajas y desventajas de cada enfoque: la implementación manual desde cero frente al uso de un servicio especializado. La comparación directa de estas dos estrategias sobre el mismo conjunto de datos proporciona una valiosa referencia para la toma de decisiones en futuros proyectos de scraping.
 
 ## Características
 
-- **Scraping de datos:** Extrae avisos y eventos de las páginas web del Ayuntamiento de León.
-- **Almacenamiento en base de datos:** Guarda los datos scrapeados en una base de datos MySQL, evitando duplicados.
-- **Endpoints RESTful:** Exposición de datos mediante rutas organizadas.
-- **Validación de datos:** Controla que los datos estén completos antes de almacenarlos.
-- **Modularidad:** Código dividido en controladores, servicios, modelos y rutas para facilitar su mantenimiento y escalabilidad.
+- **Scraping de datos:** Extrae avisos y eventos de las páginas web del Ayuntamiento de León mediante técnicas automatizadas de recolección de datos.
+
+- **Almacenamiento en base de datos:** Implementa un sistema robusto de almacenamiento en MySQL que previene la duplicación de registros y mantiene la integridad de los datos.
+
+- **Endpoints RESTful:** Proporciona una interfaz de programación clara y organizada mediante rutas REST que facilitan el acceso y manipulación de los datos extraídos.
+
+- **Validación de datos:** Incorpora mecanismos de validación que aseguran la completitud y consistencia de los datos antes de su almacenamiento en la base de datos.
+
+- **Modularidad:** Estructura el código siguiendo principios de diseño modular, separando la lógica en controladores, servicios, modelos y rutas para facilitar el mantenimiento y la escalabilidad del sistema.
 
 ## Requisitos
 
@@ -51,21 +61,28 @@ npm run dev
 #### 5. Realización de pruebas
 Las pruebas de los endpoints están disponibles en el archivo .rest incluido en el proyecto. Puedes usar herramientas como REST Client en Visual Studio Code para ejecutarlas.
 
-# Uso de la API
+# Documentación de la API
 
 ## Endpoints Disponibles
 
 ### Avisos
-
-- **Scrape avisos:** `GET /api/avisos/scrape`
+- **Scraping de avisos:** `GET /api/avisos/scrape`
 - **Obtener todos los avisos:** `GET /api/avisos/`
-- **Actualizar un aviso:** `PUT /api/avisos/:id`
-- **Eliminar un aviso:** `DELETE /api/avisos/:id`
+- **Crear nuevo aviso:** `POST /api/avisos`
+- **Actualizar aviso:** `PUT /api/avisos/:id`
+- **Eliminar aviso:** `DELETE /api/avisos/:id`
 
 ### Eventos
-
-- **Scrape eventos:** `GET /api/events/scrape`
+- **Scraping de eventos:** `GET /api/events/scrape`
 - **Obtener todos los eventos:** `GET /api/events/events`
-- **Obtener un evento específico:** `GET /api/events/events/:id`
-- **Actualizar un evento:** `PUT /api/events/events/:id`
-- **Eliminar un evento:** `DELETE /api/events/events/:id`
+- **Obtener evento específico:** `GET /api/events/events/:id`
+- **Crear nuevo evento:** `POST /api/events/events`
+- **Actualizar evento:** `PUT /api/events/events/:id`
+- **Eliminar evento:** `DELETE /api/events/events/:id`
+
+### Noticias
+- **Scraping de noticias:** `GET /api/notices/scrape`
+- **Obtener todas las noticias:** `GET /api/notices/`
+- **Crear nueva noticia:** `POST /api/notices`
+- **Actualizar noticia:** `PUT /api/notices/:id`
+- **Eliminar noticia:** `DELETE /api/notices/:id`
