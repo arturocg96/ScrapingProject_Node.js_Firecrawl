@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get('/scrape', avisosController.scrapeAvisosAndSave);
 router.get('/', avisosController.getAllAvisos);
+router.post('/avisos', avisosController.insertAviso);
 router.put('/:id', avisosController.updateAviso);
 router.delete('/:id', avisosController.deleteAviso);
 

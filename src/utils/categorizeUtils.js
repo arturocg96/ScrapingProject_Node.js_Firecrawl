@@ -32,7 +32,8 @@ const categorizeAviso = (aviso) => {
         textoCompleto.includes("estacionamiento") ||
         textoCompleto.includes("aparcamiento") ||
         textoCompleto.includes("semáforo") ||
-        textoCompleto.includes("semaforo")
+        textoCompleto.includes("semaforo") ||
+        textoCompleto.includes("corte calle")
     ) {
         return "Tráfico";
     }

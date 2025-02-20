@@ -68,6 +68,8 @@ const getAvisoById = async (id) => {
   }
 };
 
+
+
 const updateAviso = async (id, updatedAviso) => {
   const connection = await connect();
   
@@ -106,10 +108,48 @@ const deleteAviso = async (id) => {
   }
 };
 
+const saveAviso = async (aviso) => {
+  const connection = await connect();
+  
+  try {
+      const { title, subtitle, link, content, category } = aviso;
+      
+      const [result] = await connection.execute(queries.insertAviso, [
+          title,
+          subtitle,
+          link,
+          content,
+          category
+      ]);
+
+      return {
+          status: "success",
+          aviso: {
+              id: result.insertId,
+              ...aviso
+          }
+      };
+  } catch (error) {
+      if (error.code === "ER_DUP_ENTRY") {
+          return {
+              status: "duplicate",
+              message: "Ya existe un aviso con este título"
+          };
+      }
+      return {
+          status: "error",
+          message: error.message
+      };
+  } finally {
+      await connection.end();
+  }
+};
+
 module.exports = {
   saveAvisos,
   getAllAvisos,
   getAvisoById,
   updateAviso,
-  deleteAviso
+  deleteAviso, 
+  saveAviso
 };

@@ -1,6 +1,7 @@
 const avisosModel = require('../models/avisosModel');
 const scrapeService = require('../services/scrapeServices');
 const { categorizeAviso } = require('../utils/categorizeUtils');
+const { validateAviso } = require('../utils/validators/avisosValidators');
 
 const scrapeAvisosAndSave = async (req, res) => {
     try {
@@ -23,7 +24,6 @@ const scrapeAvisosAndSave = async (req, res) => {
             console.log(`Categoría asignada al aviso: ${aviso.title} - ${aviso.category}`);
         }
 
-        // Guardar avisos usando el método del modelo CRUD
         const { results, summary } = await avisosModel.saveAvisos(avisos);
 
         console.log(`Resultados del guardado:`);
@@ -54,7 +54,50 @@ const getAllAvisos = async (req, res) => {
     }
 };
 
-// **UPDATE**: Actualizar un aviso
+const insertAviso = async (req, res) => {
+    try {
+        const newAviso = req.body;
+
+        const validationResult = validateAviso(newAviso);
+        if (!validationResult.isValid) {
+            return res.status(400).json({
+                error: 'Datos inválidos',
+                details: validationResult.errors
+            });
+        }
+
+        const avisoToInsert = {
+            title: newAviso.title,
+            subtitle: newAviso.subtitle || null,
+            link: newAviso.link || null,
+            content: newAviso.content || null,
+            category: newAviso.category || "Sin categoría"
+        };
+
+        const result = await avisosModel.saveAviso(avisoToInsert);
+
+        if (result.status === "success") {
+            res.status(201).json({
+                message: 'Aviso creado correctamente',
+                aviso: result.aviso
+            });
+        } else if (result.status === "duplicate") {
+            res.status(409).json({
+                error: 'El aviso ya existe',
+                details: result.message
+            });
+        } else {
+            res.status(500).json({
+                error: 'Error al crear el aviso',
+                details: result.message
+            });
+        }
+    } catch (error) {
+        console.error('Error durante la inserción del aviso:', error.message);
+        res.status(500).json({ error: 'Error al crear el aviso' });
+    }
+};
+
 const updateAviso = async (req, res) => {
     const { id } = req.params;
     const updatedAviso = req.body;
@@ -72,7 +115,6 @@ const updateAviso = async (req, res) => {
     }
 };
 
-// **DELETE**: Eliminar un aviso
 const deleteAviso = async (req, res) => {
     const { id } = req.params;
 
@@ -89,4 +131,4 @@ const deleteAviso = async (req, res) => {
     }
 };
 
-module.exports = { scrapeAvisosAndSave, getAllAvisos, updateAviso, deleteAviso };
+module.exports = { scrapeAvisosAndSave, getAllAvisos, updateAviso, deleteAviso,  insertAviso };

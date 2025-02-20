@@ -28,7 +28,9 @@ CREATE TABLE IF NOT EXISTS `avisos` (
   `category` VARCHAR(255) NOT NULL DEFAULT 'Sin categoría', 
   `subtitle` VARCHAR(255),                      
   `link` VARCHAR(2083),                         
-  `content` TEXT DEFAULT NULL,                  
+  `content` TEXT DEFAULT NULL,    
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,              
   UNIQUE(`title`, `subtitle`)                 
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4

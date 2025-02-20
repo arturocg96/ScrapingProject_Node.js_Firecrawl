@@ -1,0 +1,39 @@
+@url = http://localhost:3000
+
+# Ejecutar scraping de notices
+GET {{url}}/api/notices/scrape
+Content-Type: application/json
+
+###
+# Obtener todos los notices
+GET {{url}}/api/notices/
+
+###
+# Crear nuevo notice
+POST {{url}}/api/notices
+Content-Type: application/json
+
+{
+    "title": "Título del nuevo notice",
+    "subtitle": "Subtítulo del notice",
+    "link": "https://ejemplo.com/notice",
+    "content": "Contenido del notice",
+    "category": "General"
+}
+
+###
+# Actualizar notice existente
+PUT {{url}}/api/notices/1
+Content-Type: application/json
+
+{
+    "title": "Nuevo título del aviso",
+    "subtitle": "Nuevo subtítulo",
+    "link": "https://nuevo-link.com",
+    "content": "Nuevo contenido del aviso",
+    "category": "Categoría actualizada"
+}
+
+###
+# Eliminar notice
+DELETE {{url}}/api/notices/1

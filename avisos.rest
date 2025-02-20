@@ -1,18 +1,38 @@
 @url = http://localhost:3000
 
+# Ejecutar scraping de avisos
 GET {{url}}/api/avisos/scrape
 
+###
+# Obtener todos los avisos
 GET {{url}}/api/avisos/
 
+###
+# Crear nuevo aviso
+POST {{url}}/api/avisos
+Content-Type: application/json
+
+{
+    "title": "Título del nuevo aviso",
+    "subtitle": "Subtítulo del aviso",
+    "link": "https://ejemplo.com/aviso",
+    "content": "Contenido del aviso",
+    "category": "General"
+}
+
+###
+# Actualizar aviso existente
 PUT {{url}}/api/avisos/1
 Content-Type: application/json
 
 {
     "title": "Nuevo título del aviso",
-    "subtitle": "Nuevo subtítulo",
+    "subtitle": "Nuevo subtítulo", 
     "link": "https://nuevo-link.com",
     "content": "Nuevo contenido del aviso",
     "category": "Categoría actualizada"
 }
 
+###
+# Eliminar aviso
 DELETE {{url}}/api/avisos/1

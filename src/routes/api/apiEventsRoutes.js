@@ -6,6 +6,7 @@ router.get('/scrape', eventsController.scrapeAgenda);
 router.get('/events', eventsController.getEvents);
 router.get('/events/:id', eventsController.getEvent);
 router.put('/events/:id', eventsController.updateEventController);
+router.post('/events', eventsController.insertEvent);
 router.delete('/events/:id', eventsController.deleteEventController);
 
 module.exports = router;

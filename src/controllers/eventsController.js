@@ -1,6 +1,7 @@
 const { default: FireCrawlApp } = require('@mendable/firecrawl-js');
 const { z } = require('zod');
 const { insertEvents, getAllEvents, getEventById, deleteEvent, updateEvent } = require('../models/eventsModel');
+const { validateEvent } = require('../utils/validators/eventsValidators');
 
 const app = new FireCrawlApp({
   apiKey: process.env.FIRECRAWL_API_KEY
@@ -101,10 +102,48 @@ const deleteEventController = async (req, res) => {
   }
 };
 
+const insertEvent = async (req, res) => {
+  try {
+      const eventData = req.body;
+      
+
+      const validationResult = validateEvent(eventData);
+      
+      if (!validationResult.isValid) {
+          return res.status(400).json({
+              success: false,
+              error: 'Datos del evento inválidos',
+              errores: validationResult.errors
+          });
+      }
+
+
+      const resultado = await insertEvents([eventData]);
+      
+      res.json({
+          success: true,
+          resumen: {
+              totalEventos: resultado.resumen.total,
+              eventosNuevos: resultado.resumen.nuevos,
+              eventosDuplicados: resultado.resumen.duplicados,
+              mensaje: `Se procesó 1 evento. Se ${resultado.resumen.nuevos === 1 ? 'insertó' : 'encontró duplicado'} el evento.`
+          },
+          nuevoEvento: resultado.nuevosEventos[0] || null,
+          eventoDuplicado: resultado.eventosduplicados[0] || null
+      });
+  } catch (error) {
+      console.error('Error al insertar evento:', error);
+      res.status(500).json({
+          success: false,
+          error: error.message
+      });
+  }
+};
 module.exports = {
   scrapeAgenda,
   getEvents,
   getEvent,
   updateEventController,
-  deleteEventController
+  deleteEventController, 
+  insertEvent
 };
